@@ -14,8 +14,9 @@ main {
 }
 .btn-primary,
 .btn-outline-primary {
-  background-color: #f0c040;
-  color: #000000;
+  background-color: #dc2c2c;
+  border-color: #dc2c2c;
+  color: #ffffff;
 }
 .products {
   display: flex;
@@ -66,7 +67,7 @@ main {
   height: 100%;
   position: absolute;
   left: -300px;
-  background-color: #100901;
+  background-color: #b84844;
   transition: 0.5s;
 }
 
@@ -132,6 +133,11 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type="number"] {
-  -moz-appearance: textfield;
+.bg-red {
+  background-color: #a42c2c;
+}
+
+#admin-nav-dropdown,
+#basic-nav-dropdown {
+  color: #ffffff;
 }

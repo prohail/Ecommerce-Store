@@ -35,6 +35,9 @@ import UserListScreen from "./screens/UserListScreen";
 import UserEditScreen from "./screens/UserEditScreen";
 import ForgetPasswordScreen from "./screens/ForgetPasswordScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
+import AboutUs from "./screens/AboutUs";
+import ContactUs from "./screens/ContactUs";
+import TileCalc from "./screens/TileCalc";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -76,23 +79,43 @@ function App() {
       >
         <ToastContainer position="bottom-center" limit={1} />
         <header>
-          <Navbar expand="lg" variant="light" bg="light">
+          <Navbar expand="lg" className="bg-red">
             <Container>
               <Button
-                className="me-3 btn-outline-dark bg-white"
+                className="me-3 "
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
               >
                 <i className="fas fa-bars"></i>
               </Button>
 
               <LinkContainer to="/">
-                <Navbar.Brand className="me-5">Tile Store</Navbar.Brand>
+                <Navbar.Brand className="me-5 text-light">
+                  Tile Store
+                </Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
-                <Nav className="me-auto  w-100  justify-content-end">
-                  <Link to="/cart" className="nav-link text-dark fw-semibold">
+                <Nav className="me-auto text-light w-100  justify-content-end">
+                  <Link
+                    to="/calculator"
+                    className="nav-link text-light fw-semibold"
+                  >
+                    Tile Calculator
+                  </Link>
+
+                  <Link
+                    to="/contact"
+                    className="nav-link text-light fw-semibold"
+                  >
+                    Contact Us
+                  </Link>
+
+                  <Link to="/about" className="nav-link text-light fw-semibold">
+                    About Us
+                  </Link>
+
+                  <Link to="/cart" className="nav-link text-light fw-semibold">
                     Cart {"  "}
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
@@ -119,7 +142,7 @@ function App() {
                     </NavDropdown>
                   ) : (
                     <Link
-                      className="nav-link text-dark fw-semibold"
+                      className="nav-link text-light fw-semibold"
                       to="/signin"
                     >
                       Sign In
@@ -176,6 +199,9 @@ function App() {
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/search" element={<SearchScreen />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/calculator" element={<TileCalc />} />
+              <Route path="/contact" element={<ContactUs />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
               <Route
