@@ -12,14 +12,21 @@ export default function TileCalc() {
     const widthMeters = widthFeet * 0.3048;
     const heightMeters = heightFeet * 0.3048;
 
-    // Calculate the total length of each wall (excluding the floor and ceiling)
-    const wall1Length = Math.ceil(2 * (lengthMeters + heightMeters));
-    const wall2Length = Math.ceil(2 * (widthMeters + heightMeters));
-    const wall3Length = Math.ceil(2 * (lengthMeters + heightMeters));
-    const wall4Length = Math.ceil(2 * (widthMeters + heightMeters));
+    var wall1Length = 0;
+    var wall2Length = 0;
+    var wall3Length = 0;
+    var wall4Length = 0;
+
+    if (heightFeet) {
+      // Calculate the total length of each wall (excluding the floor and ceiling)
+      wall1Length = Math.ceil(2 * (lengthMeters + heightMeters));
+      wall2Length = Math.ceil(2 * (widthMeters + heightMeters));
+      wall3Length = Math.ceil(2 * (lengthMeters + heightMeters));
+      wall4Length = Math.ceil(2 * (widthMeters + heightMeters));
+    }
 
     // Calculate the total area of the floor
-    const floorArea = lengthMeters * widthMeters;
+    const floorArea = Math.ceil(lengthMeters * widthMeters);
 
     setOut({
       wall1Length,
@@ -33,7 +40,13 @@ export default function TileCalc() {
   return (
     <div className="container">
       <h2 className="text-center">Tile Calculator</h2>
-      <form className="w-50 mx-auto">
+      <form
+        className="w-50 mx-auto"
+        onSubmit={(e) => {
+          e.preventDefault();
+          calculateWallAndFloorLengths(len, wid, hei);
+        }}
+      >
         <div className="form-group">
           <label>Room Width (ft)</label>
           <input
@@ -51,6 +64,7 @@ export default function TileCalc() {
           <input
             type="number"
             min={0}
+            required
             className="form-control"
             onChange={(e) => {
               setLen(e.target.value);
@@ -70,15 +84,7 @@ export default function TileCalc() {
           />
         </div>
         <br />
-        <input
-          type="submit"
-          value="Calculate"
-          className="btn btn-primary"
-          onClick={(e) => {
-            e.preventDefault();
-            calculateWallAndFloorLengths(len, wid, hei);
-          }}
-        />
+        <input type="submit" value="Calculate" className="btn btn-primary" />
       </form>
       <br />
       {out && (

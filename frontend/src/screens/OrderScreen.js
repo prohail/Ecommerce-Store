@@ -9,6 +9,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import LoadingBox from "../components/LoadingBox";
+import PaymentProof from "../components/PaymentProof";
 import MessageBox from "../components/MessageBox";
 import { Store } from "../Store";
 import { getError } from "../utils";
@@ -275,6 +276,7 @@ export default function OrderScreen() {
               </ListGroup>
             </Card.Body>
           </Card>
+          <PaymentProof orderId={orderId} />
         </Col>
       </Row>
     </div>
