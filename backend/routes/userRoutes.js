@@ -1,5 +1,6 @@
 import express from "express";
 import bcrypt from "bcryptjs";
+import validator from "validator";
 import expressAsyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
@@ -183,6 +184,20 @@ userRouter.post(
 userRouter.post(
   "/signup",
   expressAsyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    if (!validator.isEmail(email)) {
+      res.status(400).send({ message: "Invalid email" });
+      return;
+    }
+    if (!validator.isStrongPassword(password)) {
+      res.status(400).send({ message: "Password is too weak" });
+      return;
+    }
+    const Exuser = await User.findOne({ email });
+    if (Exuser) {
+      res.status(400).send({ message: "User already exists" });
+      return;
+    }
     const newUser = new User({
       name: req.body.name,
       email: req.body.email,
@@ -195,6 +210,7 @@ userRouter.post(
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user),
+      message: "User Created",
     });
   })
 );

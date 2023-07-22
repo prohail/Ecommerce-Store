@@ -2,7 +2,7 @@ import React from "react";
 
 export default function AboutUs() {
   return (
-    <div className="container">
+    <div className="container py-5">
       <h2>Our Mission</h2>
       <p className="fs-5 w-75">
         Our Mission is to maintain our position as the leader in the tile

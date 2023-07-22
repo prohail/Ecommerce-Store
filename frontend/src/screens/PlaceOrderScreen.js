@@ -82,7 +82,7 @@ export default function PlaceOrderScreen() {
   }, [cart, navigate]);
 
   return (
-    <div>
+    <div className="py-5">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
       <Helmet>
         <title>Preview Order</title>

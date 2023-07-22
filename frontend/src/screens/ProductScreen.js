@@ -122,7 +122,7 @@ function ProductScreen() {
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <div>
+    <div className="py-5">
       <Row>
         <Col md={6}>
           <img

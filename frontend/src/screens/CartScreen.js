@@ -37,7 +37,7 @@ export default function CartScreen() {
   };
 
   return (
-    <div>
+    <div className="py-5">
       <Helmet>
         <title>Shopping Cart</title>
       </Helmet>

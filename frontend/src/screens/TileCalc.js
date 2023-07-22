@@ -38,7 +38,7 @@ export default function TileCalc() {
   }
 
   return (
-    <div className="container">
+    <div className="container py-5">
       <h2 className="text-center">Tile Calculator</h2>
       <form
         className="w-50 mx-auto"

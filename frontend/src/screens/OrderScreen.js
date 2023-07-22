@@ -140,7 +140,7 @@ export default function OrderScreen() {
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <div>
+    <div className="py-5">
       <Helmet>
         <title>Order {orderId}</title>
       </Helmet>
