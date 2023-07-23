@@ -297,7 +297,7 @@ function App() {
             </Routes>
           </Container>
         </main>
-        <footer className="container-fluid py-2 px-5 bg-dark text-light mt-5">
+        <footer className="container-fluid py-2 px-5 bg-dark text-light mt-5 rounded-top">
           <div className="row">
             <div className="col-md-3">
               <h3>TileStore</h3>
