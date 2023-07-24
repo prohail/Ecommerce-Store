@@ -8,9 +8,9 @@ export default function TileCalc() {
 
   function calculateWallAndFloorLengths(lengthFeet, widthFeet, heightFeet) {
     // Convert dimensions from feet to meters
-    const lengthMeters = lengthFeet * 0.3048;
-    const widthMeters = widthFeet * 0.3048;
-    const heightMeters = heightFeet * 0.3048;
+    const lengthMeters = lengthFeet * 0.3148;
+    const widthMeters = widthFeet * 0.3148;
+    const heightMeters = heightFeet * 0.3148;
 
     var wall1Length = 0;
     var wall2Length = 0;
@@ -90,13 +90,21 @@ export default function TileCalc() {
       {out && (
         <div className="w-50 text-center mx-auto">
           <div className="alert alert-primary">
-            You need {out.wall1Length} meter tiles for One Side
+            Wall 1 and Wall 3 need{" "}
+            <span className="fw-bold color-dark">{out.wall1Length}</span> meter
+            tiles
           </div>
           <div className="alert alert-primary">
-            You need {out.wall2Length} meter tiles for Second Side
+            Wall 2 and Wall 4 need{" "}
+            <span className="fw-bold color-dark">{out.wall2Length}</span> meter
+            tiles
           </div>
           <div className="alert alert-primary">
-            You need {out.floorArea} meter tiles for Floor
+            Floor needs {out.floorArea} meter tiles
+          </div>
+          <div className="alert alert-success">
+            Total tiles needed:{" "}
+            {out.floorArea + out.wall1Length + out.wall2Length} Meter
           </div>
         </div>
       )}
