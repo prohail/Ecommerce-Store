@@ -184,6 +184,22 @@ orderRouter.put(
 );
 
 orderRouter.put(
+  "/:id/dispatch",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      order.isDispatched = true;
+      order.dispatchAt = Date.now();
+      await order.save();
+      res.send({ message: "Order Dispatched" });
+    } else {
+      res.status(404).send({ message: "Order Not Found" });
+    }
+  })
+);
+
+orderRouter.put(
   "/:id/pay",
   isAuth,
   expressAsyncHandler(async (req, res) => {

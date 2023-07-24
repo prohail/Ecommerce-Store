@@ -38,6 +38,7 @@ import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import AboutUs from "./screens/AboutUs";
 import ContactUs from "./screens/ContactUs";
 import TileCalc from "./screens/TileCalc";
+import WhatsAppChatIcon from "./components/WhatsAppChatIcon";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -64,6 +65,12 @@ function App() {
     };
     fetchCategories();
   }, []);
+
+  const handleEmailSend = () => {
+    const emailAddress = "engrzubair139@gmail.com";
+    const encodedEmail = encodeURIComponent(emailAddress);
+    window.location.href = `mailto:${encodedEmail}`;
+  };
   return (
     <BrowserRouter>
       <div
@@ -326,7 +333,7 @@ function App() {
                 >
                   <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
                 </svg>{" "}
-                vtile14139@gmail.com
+                <span onClick={handleEmailSend}>vtile14139@gmail.com</span>
               </pre>
 
               <pre>
@@ -345,7 +352,11 @@ function App() {
                 </svg>{" "}
                 00923034667209
               </pre>
+              <pre>
+                <WhatsAppChatIcon phoneNumber={"+923097112770"} />
+              </pre>
             </div>
+
             <div className="col-md align-items-center d-flex justify-content-center fs-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

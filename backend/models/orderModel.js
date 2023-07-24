@@ -47,7 +47,9 @@ const orderSchema = new mongoose.Schema(
     paidAt: { type: Date },
     paymentProof: { type: String },
     isDelivered: { type: Boolean, default: false },
+    isDispatched: { type: Boolean, default: false },
     deliveredAt: { type: Date },
+    dispatchAt: { type: Date },
   },
   {
     timestamps: true,

@@ -44,6 +44,12 @@ function reducer(state, action) {
         loadingDeliver: false,
         successDeliver: false,
       };
+
+    case "DISPATCH_REQUEST":
+      return { ...state, loadingDeliver: true };
+    case "DISPATCH_SUCCESS":
+      return { ...state, loadingDeliver: false, successDeliver: true };
+
     default:
       return state;
   }
@@ -117,6 +123,24 @@ export default function OrderScreen() {
     }
   }
 
+  async function dispatchOrderHandler() {
+    try {
+      dispatch({ type: "DISPATCH_REQUEST" });
+      const { data } = await axios.put(
+        `/api/orders/${order._id}/dispatch`,
+        {},
+        {
+          headers: { authorization: `Bearer ${userInfo.token}` },
+        }
+      );
+      dispatch({ type: "DISPATCH_SUCCESS", payload: data });
+      toast.success("Order is dispatched");
+    } catch (err) {
+      toast.error(getError(err));
+      dispatch({ type: "DELIVER_FAIL" });
+    }
+  }
+
   async function payOrderHandler() {
     try {
       dispatch({ type: "PAY_REQUEST" });
@@ -166,6 +190,13 @@ export default function OrderScreen() {
                     </a>
                   )}
               </Card.Text>
+              {order.isDispatched ? (
+                <MessageBox variant="success">
+                  Dispatched at {order.dispatchAt}
+                </MessageBox>
+              ) : (
+                <MessageBox variant="danger">Not Dispatched</MessageBox>
+              )}
               {order.isDelivered ? (
                 <MessageBox variant="success">
                   Delivered at {order.deliveredAt}
@@ -257,6 +288,15 @@ export default function OrderScreen() {
                         <div className="d-grid">
                           <Button type="button" onClick={payOrderHandler}>
                             Pay Order
+                          </Button>
+                        </div>
+                      </ListGroup.Item>
+                    )}
+                    {!order.isDispatched && (
+                      <ListGroup.Item>
+                        <div className="d-grid">
+                          <Button type="button" onClick={dispatchOrderHandler}>
+                            Dispatch Order
                           </Button>
                         </div>
                       </ListGroup.Item>

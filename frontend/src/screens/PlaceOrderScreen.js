@@ -75,6 +75,18 @@ export default function PlaceOrderScreen() {
     }
   };
 
+  const cancelOrderHandler = async () => {
+    try {
+      ctxDispatch({ type: "CART_CLEAR" });
+      dispatch({ type: "CREATE_SUCCESS" });
+      localStorage.removeItem("cartItems");
+      navigate(`/`);
+    } catch (err) {
+      dispatch({ type: "CREATE_FAIL" });
+      toast.error(getError(err));
+    }
+  };
+
   useEffect(() => {
     if (!cart.paymentMethod) {
       navigate("/payment");
@@ -181,6 +193,19 @@ export default function PlaceOrderScreen() {
                       disabled={cart.cartItems.length === 0}
                     >
                       Place Order
+                    </Button>
+                  </div>
+                  {loading && <LoadingBox></LoadingBox>}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <div className="d-grid">
+                    <Button
+                      type="button"
+                      className="btn-secondary"
+                      onClick={cancelOrderHandler}
+                      disabled={cart.cartItems.length === 0}
+                    >
+                      Cancel Order
                     </Button>
                   </div>
                   {loading && <LoadingBox></LoadingBox>}
