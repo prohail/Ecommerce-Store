@@ -191,6 +191,14 @@ function ProductScreen() {
                       )}
                     </Col>
                   </Row>
+                  {userInfo?.isAdmin && (
+                    <Row>
+                      <Col>Count in Stock:</Col>
+                      <Col>
+                        <Badge bg="success">{product.countInStock}</Badge>
+                      </Col>
+                    </Row>
+                  )}
                 </ListGroup.Item>
 
                 {product.countInStock > 0 && (
