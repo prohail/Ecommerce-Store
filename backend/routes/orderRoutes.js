@@ -184,6 +184,21 @@ orderRouter.put(
 );
 
 orderRouter.put(
+  "/:id/track/:trid",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    const trid = req.params.trid;
+    if (order) {
+      order.trid = trid;
+      await order.save();
+    } else {
+      res.status(404).send({ message: "Order Not Found" });
+    }
+  })
+);
+
+orderRouter.put(
   "/:id/dispatch",
   isAuth,
   expressAsyncHandler(async (req, res) => {

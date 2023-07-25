@@ -83,6 +83,9 @@ const PaymentProof = ({ orderId }) => {
   return (
     <div>
       <p className="fs-5">Payment Proof:</p>
+      <p>
+        Please Pay at <b>03034667209</b> Easypaisa or JazzCash
+      </p>
       {message && (
         <div
           className={`alert ${isError ? "alert-danger" : "alert-success"}`}

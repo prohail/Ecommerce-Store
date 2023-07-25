@@ -50,6 +50,7 @@ const orderSchema = new mongoose.Schema(
     isDispatched: { type: Boolean, default: false },
     deliveredAt: { type: Date },
     dispatchAt: { type: Date },
+    trid: { type: Number },
   },
   {
     timestamps: true,

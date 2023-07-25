@@ -111,13 +111,6 @@ function App() {
                     Tile Calculator
                   </Link>
 
-                  <Link
-                    to="/contact"
-                    className="nav-link text-light fw-semibold"
-                  >
-                    Contact Us
-                  </Link>
-
                   <Link to="/about" className="nav-link text-light fw-semibold">
                     About Us
                   </Link>

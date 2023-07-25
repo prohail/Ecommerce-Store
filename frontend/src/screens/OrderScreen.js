@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
@@ -62,6 +62,9 @@ export default function OrderScreen() {
   const { id: orderId } = params;
   const navigate = useNavigate();
 
+  const [dispshow, setDispshow] = useState(false);
+  const [trid, setTrid] = useState(null);
+
   const [
     { loading, error, order, successPay, loadingDeliver, successDeliver },
     dispatch,
@@ -121,6 +124,16 @@ export default function OrderScreen() {
       toast.error(getError(err));
       dispatch({ type: "DELIVER_FAIL" });
     }
+  }
+
+  async function tridHandler() {
+    await axios.put(
+      `/api/orders/${order._id}/track/${trid}`,
+      {},
+      {
+        headers: { authorization: `Bearer ${userInfo.token}` },
+      }
+    );
   }
 
   async function dispatchOrderHandler() {
@@ -193,6 +206,12 @@ export default function OrderScreen() {
               {order.isDispatched ? (
                 <MessageBox variant="success">
                   Dispatched at {order.dispatchAt}
+                  <br />
+                  Tracking ID is <b>{order.trid}</b>
+                  <br />
+                  <a href="https://www.tcsexpress.com/track/" target="_blank">
+                    Track on TCS
+                  </a>
                 </MessageBox>
               ) : (
                 <MessageBox variant="danger">Not Dispatched</MessageBox>
@@ -294,11 +313,59 @@ export default function OrderScreen() {
                     )}
                     {!order.isDispatched && (
                       <ListGroup.Item>
-                        <div className="d-grid">
-                          <Button type="button" onClick={dispatchOrderHandler}>
-                            Dispatch Order
-                          </Button>
-                        </div>
+                        {!dispshow && (
+                          <div className="d-grid">
+                            <Button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setDispshow(true);
+                              }}
+                            >
+                              Dispatch Order
+                            </Button>
+                          </div>
+                        )}
+                        {dispshow && (
+                          <form
+                            onSubmit={(e) => {
+                              e.preventDefault();
+                              dispatchOrderHandler();
+                              tridHandler();
+                            }}
+                          >
+                            <div className="d-grid">
+                              <input
+                                type="number"
+                                className="form-control"
+                                placeholder="Enter Tracking ID"
+                                onChange={(e) => {
+                                  e.preventDefault();
+                                  setTrid(e.target.value);
+                                }}
+                                required
+                              />
+                              <br />
+                              <input
+                                type="submit"
+                                value="Submit"
+                                className="btn btn-primary"
+                              />
+                              <br />
+                              <button
+                                className="btn btn-secondary"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setDispshow(false);
+                                }}
+                              >
+                                Cancel
+                              </button>
+                              <br />
+                              <br />
+                            </div>
+                          </form>
+                        )}
                       </ListGroup.Item>
                     )}
                     {!order.isDelivered && (
